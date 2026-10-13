@@ -6,14 +6,14 @@ using namespace std;
 class Sorter {
 public:
     void mergeSortAlgo(int arr[], int left, int right);
-    void quickSort(int arr[], int low, int high);      // last-element pivot
-    void quickSortM3(int arr[], int low, int high);    // median-of-three pivot
+    void quickSort(int arr[], int low, int high);     
+    void quickSortM3(int arr[], int low, int high);    
 
 private:
     void merge(int arr[], int left, int right, int mid);
     int partition(int arr[], int low, int high);
     int partitionM3(int arr[], int low, int high);
-    int medianOfThree(int arr[], int low, int high);  // returns pivot index
+    int medianOfThree(int arr[], int low, int high);  
 };
 
 // ---------------- Merge Sort Implementation ----------------
@@ -44,7 +44,6 @@ void Sorter::merge(int arr[], int left, int right, int mid) {
         k++;
     }
 
-    // Remaining items
     while (i < lsize) {
         arr[k] = larr[i];
         i++;
@@ -56,9 +55,7 @@ void Sorter::merge(int arr[], int left, int right, int mid) {
         k++;
     }
 
-    // Free allocated memory
-    delete[] larr;
-    delete[] rarr;
+    
 }
 
 void Sorter::mergeSortAlgo(int arr[], int left, int right) {
@@ -70,11 +67,10 @@ void Sorter::mergeSortAlgo(int arr[], int left, int right) {
     merge(arr, left, right, mid);
 }
 
-// ---------------- Standard QuickSort (Last Element Pivot) ----------------
 
 int Sorter::partition(int arr[], int low, int high) {
-    int pivot = arr[high]; // Last element as pivot
-    int i = low - 1;       // Boundary for elements smaller than pivot
+    int pivot = arr[high]; 
+    int i = low - 1;       
 
     for (int j = low; j < high; j++) {
         if (arr[j] <= pivot) {
@@ -83,7 +79,7 @@ int Sorter::partition(int arr[], int low, int high) {
         }
     }
 
-    // Place the pivot into its final sorted position
+    
     swap(arr[i + 1], arr[high]);
     return i + 1;
 }
@@ -96,12 +92,12 @@ void Sorter::quickSort(int arr[], int low, int high) {
     }
 }
 
-// ---------------- Median-of-Three QuickSort ----------------
+
 
 int Sorter::medianOfThree(int arr[], int low, int high) {
     int mid = low + (high - low) / 2;
 
-    // Sort arr[low], arr[mid], arr[high]
+    
     if (arr[mid] < arr[low])
         swap(arr[low], arr[mid]);
     if (arr[high] < arr[low])
@@ -109,14 +105,13 @@ int Sorter::medianOfThree(int arr[], int low, int high) {
     if (arr[high] < arr[mid])
         swap(arr[mid], arr[high]);
 
-    // arr[mid] is now the median value among low, mid, and high.
-    // Move it to high to serve as the pivot in standard Lomuto partition.
+    
     swap(arr[mid], arr[high]);
     return high;
 }
 
 int Sorter::partitionM3(int arr[], int low, int high) {
-    medianOfThree(arr, low, high); // Sets median at arr[high]
+    medianOfThree(arr, low, high); 
     return partition(arr, low, high);
 }
 
